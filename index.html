@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Checklist</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background: #f9f9f9;
+			margin: 0;
+			padding: 2em;
+		}
+
+		.container {
+			max-width: 400px;
+			margin: auto;
+			background: #fff;
+			padding: 2em;
+			border-radius: 8px;
+			box-shadow: 0 2px 8px #0001;
+		}
+
+		h1 {
+			text-align: center;
+		}
+
+		ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		li {
+			margin: 1em 0;
+		}
+
+		label {
+			cursor: pointer;
+		}
+
+		input[type="checkbox"] {
+			margin-right: 1em;
+		}
+
+		.hidden {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Checklist</h1>
+		<ul id="checklist">
+			<li>
+				<label>
+					<input type="checkbox" data-step="0">
+					Step 1: Gather materials
+				</label>
+			</li>
+			<li class="hidden">
+				<label>
+					<input type="checkbox" data-step="1">
+					Step 2: Prepare workspace
+				</label>
+			</li>
+			<li class="hidden">
+				<label>
+					<input type="checkbox" data-step="2">
+					Step 3: Begin project
+				</label>
+			</li>
+			<li class="hidden">
+				<label>
+					<input type="checkbox" data-step="3">
+					Step 4: Review progress
+				</label>
+			</li>
+			<li class="hidden">
+				<label>
+					<input type="checkbox" data-step="4">
+					Step 5: Complete and submit
+				</label>
+			</li>
+		</ul>
+	</div>
+	<script>
+		const checklist = document.getElementById('checklist');
+		const steps = checklist.querySelectorAll('input[type="checkbox"]');
+		const STORAGE_KEY = 'checklist-progress';
+
+		// Load progress from localStorage
+		function loadProgress() {
+			const saved = localStorage.getItem(STORAGE_KEY);
+			if (!saved) return;
+			const checkedSteps = JSON.parse(saved);
+			steps.forEach((checkbox, idx) => {
+				checkbox.checked = !!checkedSteps[idx];
+				// Show step if previous is checked
+				if (idx === 0 || checkedSteps[idx - 1]) {
+					checkbox.closest('li').classList.remove('hidden');
+				} else {
+					checkbox.closest('li').classList.add('hidden');
+				}
+			});
+		}
+
+		// Save progress to localStorage
+		function saveProgress() {
+			const checkedSteps = Array.from(steps).map(cb => cb.checked);
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedSteps));
+		}
+
+		checklist.addEventListener('change', function (e) {
+			if (e.target.matches('input[type="checkbox"]')) {
+				const step = parseInt(e.target.getAttribute('data-step'), 10);
+				if (e.target.checked) {
+					const nextLi = checklist.querySelector(`li:nth-child(${step + 2})`);
+					if (nextLi) nextLi.classList.remove('hidden');
+				} else {
+					// Unchecking hides all later steps
+					for (let i = step + 1; i < checklist.children.length; i++) {
+						checklist.children[i].classList.add('hidden');
+						checklist.children[i].querySelector('input').checked = false;
+					}
+				}
+				saveProgress();
+			}
+		});
+
+		// Initialize checklist on page load
+		loadProgress();
+	</script>
+</body>
+
+</html>
