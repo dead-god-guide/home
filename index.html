@@ -3,20 +3,33 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Checklist</title>
+	<title>Dead God Guide</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style>
+		@font-face {
+			font-family: 'isaac';
+			/*a name to be used later*/
+			src: url('./resources/fonts/upheavtt.ttf');
+			/*URL to font*/
+		}
+
+		b {
+			font-weight: bold;
+			font-family: 'isaac';
+		}
+
 		body {
 			font-family: Arial, sans-serif;
-			background: #f9f9f9;
+			background: #cec5ad;
 			margin: 0;
 			padding: 2em;
+			background-image: url("./resources/images/background.jpg");
 		}
 
 		.container {
 			max-width: 400px;
 			margin: auto;
-			background: #fff;
+			/* background: #fff; */
 			padding: 2em;
 			border-radius: 8px;
 			box-shadow: 0 2px 8px #0001;
@@ -50,39 +63,83 @@
 </head>
 
 <body>
+
+	<div class="container">
+		<h1>Dead God Guide</h1>
+		<p>This guide will help you navigate through the steps to defeat the Dead God. Follow each step in order, and check
+			them off as you complete them. Your progress will be saved automatically.</p>
+
+		<title>Contents</title>
+		<ul>
+			<li>
+				<a href="" target="_blank">Miscellaneous Unlocks</a> - things you should always prioritize if given the
+				opportunity
+			</li>
+			<li>
+				<a href="" target="_blank">Daily Runs</a> - long unlocks that take a while to do
+			</li>
+			<li>
+				<a href="" target="_blank">Things to avoid</a> - unlocks that are not great or actively bad
+			</li>
+			<li>
+				<a href="" target="_blank">Runes to unlock first</a> - getting 6 runes unlocked prevents rune shard from
+				spawning
+			</li>
+			<li>
+				<a href="" target="_blank">Challenges to finish asap when unlocked</a> - some of the good challenges unlocked
+				by default
+			</li>
+			<li>
+				<a href="" target="_blank">Early progression/mechanic unlocks</a> - things needed to unlock most other
+				stuff/very useful mechanics to unlock
+			</li>
+			<li>
+				<a href="" target="_blank">Character Unlocks</a> - unlocking most regular characters is first big priority
+			</li>
+			<li>
+				<a href="" target="_blank">Early Completion Marks</a> - strong unlocks that will help you win more runs, after
+				you unlock <code>It Lives but</code> before unlocking Keeper/Lost's Holy Mantle
+			</li>
+			<li>
+				<a href="" target="_blank">Tainted Character Unlocks</a> - should be done once most regular characters/strong
+				items are unlocked and while defeating The Beast with all regular characters
+			</li>
+			<li>
+				<a href="" target="_blank">Greed(ier) Mode</a> - greed mode can be done whenever, greedier should wait till
+				most strong items/tainted characters are unlocked
+			</li>
+			<li>
+				<a href="" target="_blank">Miscellaneous Unlocks 2</a> - unlocks that aren't super important, but should be
+				paid attention to as they are more rare opportunities
+			<li>
+				<a href="" target="_blank">Later Completion Marks</a> - includes Keeper/Lost and all Tainted Character
+			</li>
+		</ul>
+	</div>
+
+
 	<div class="container">
 		<h1>Checklist</h1>
 		<ul id="checklist">
 			<li>
 				<label>
 					<input type="checkbox" data-step="0">
-					Step 1: Gather materials
+					<b>Donation Machine</b> you should prioritize upgrading your donation machine to get consistently better shops
+					for all your runs.
 				</label>
 			</li>
 			<li class="hidden">
 				<label>
 					<input type="checkbox" data-step="1">
-					Step 2: Prepare workspace
+					<b>The Lost</b> dying in a sacrifice room while holding Missing Poster (don't need to die to spikes
+					specifically)
 				</label>
 			</li>
 			<li class="hidden">
 				<label>
 					<input type="checkbox" data-step="2">
-					Step 3: Begin project
+					<b>Ace of Clubs</b> win three runs in a row
 				</label>
-			</li>
-			<li class="hidden">
-				<label>
-					<input type="checkbox" data-step="3">
-					Step 4: Review progress
-				</label>
-			</li>
-			<li class="hidden">
-				<label>
-					<input type="checkbox" data-step="4">
-					Step 5: Complete and submit
-				</label>
-			</li>
 		</ul>
 	</div>
 	<script>
