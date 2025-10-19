@@ -1,193 +1,774 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Dead God Guide</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Optimal Path to Dead God — Checklist</title>
 	<style>
-		@font-face {
-			font-family: 'isaac';
-			/*a name to be used later*/
-			src: url('./resources/fonts/upheavtt.ttf');
-			/*URL to font*/
+		:root {
+			--bg: #f6f8fb;
+			--card: #ffffff;
+			--text: #0f1724;
+			--muted: #6b7280;
+			--accent: #2563eb;
+			--shadow: 0 6px 18px rgba(15, 23, 36, 0.08);
+			--radius: 12px;
+			--accent-strong: linear-gradient(135deg, #2563eb, #60a5fa);
 		}
 
-		b {
+		.dark {
+			--bg: #0b1020;
+			--card: #0f1724;
+			--text: #e6eef8;
+			--muted: #9aa6bf;
+			--accent: #60a5fa;
+			--shadow: 0 8px 28px rgba(2, 6, 23, 0.6);
+		}
+
+		* {
+			box-sizing: border-box
+		}
+
+		@font-face {
+			font-family: 'isaac';
+			src: url('resources/fonts/upheaval-tt-brk.upheaval-tt-brk.ttf');
+		}
+
+		h2 {
 			font-weight: bold;
 			font-family: 'isaac';
 		}
 
 		body {
-			font-family: Arial, sans-serif;
-			background: #cec5ad;
 			margin: 0;
-			padding: 2em;
-			background-image: url("./resources/images/background.jpg");
+			font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+			background: var(--bg);
+			color: var(--text);
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			padding: 28px;
+		}
+
+		header {
+			display: flex;
+			gap: 12px;
+			align-items: center;
+			justify-content: space-between;
+			max-width: 1100px;
+			margin: 0 auto 18px;
+		}
+
+		.brand {
+			display: flex;
+			gap: 16px;
+			align-items: center
+		}
+
+		.page-title {
+			margin: 0;
+			font-size: 20px
+		}
+
+		.controls {
+			display: flex;
+			gap: 8px
+		}
+
+		.btn {
+			background: var(--card);
+			color: var(--text);
+			border: 1px solid rgba(0, 0, 0, 0.06);
+			padding: 8px 12px;
+			border-radius: 10px;
+			box-shadow: var(--shadow);
+			cursor: pointer;
+			font-weight: 600;
+		}
+
+		.btn.secondary {
+			background: transparent;
+			border: 1px solid rgba(255, 255, 255, 0.04)
+		}
+
+		main {
+			max-width: 1100px;
+			margin: 0 auto;
+			display: flex;
+			flex-direction: column;
+			gap: 14px
 		}
 
 		.container {
-			max-width: 400px;
-			margin: auto;
-			/* background: #fff; */
-			padding: 2em;
-			border-radius: 8px;
-			box-shadow: 0 2px 8px #0001;
+			background: var(--card);
+			border-radius: var(--radius);
+			padding: 16px;
+			box-shadow: var(--shadow);
+			border: 1px solid rgba(0, 0, 0, 0.04);
+			/* background-image: url('resources/images/background.jpg'); */
 		}
 
-		h1 {
-			text-align: center;
+		.section-head {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+			margin-bottom: 8px;
 		}
 
-		ul {
-			list-style: none;
-			padding: 0;
+		.section-title {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			font-size: 18px;
+			margin: 0;
 		}
 
-		li {
-			margin: 1em 0;
-		}
-
-		label {
+		.toggle-btn {
+			background: transparent;
+			border: 0;
+			color: var(--muted);
+			font-weight: 700;
+			font-size: 16px;
 			cursor: pointer;
+			padding: 6px 8px;
+			border-radius: 8px;
+		}
+
+		.toggle-btn:hover {
+			background: rgba(0, 0, 0, 0.03)
+		}
+
+		.collapsible {
+			overflow: hidden;
+			transition: max-height 220ms ease
+		}
+
+		ul.checklist {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			gap: 8px
+		}
+
+		ul.checklist li {
+			display: flex;
+			gap: 12px;
+			align-items: flex-start;
+			padding: 8px;
+			border-radius: 8px
+		}
+
+		label.item {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			cursor: pointer;
+			user-select: none;
+			width: 100%
+		}
+
+		label.item .text {
+			display: block;
+			font-size: 14px;
+			color: var(--text);
+			line-height: 1.3
 		}
 
 		input[type="checkbox"] {
-			margin-right: 1em;
+			width: 18px;
+			height: 18px;
+			accent-color: var(--accent)
 		}
 
-		.hidden {
-			display: none;
+		.meta {
+			color: var(--muted);
+			font-size: 13px;
+			margin-top: 8px
+		}
+
+		footer {
+			max-width: 1100px;
+			margin: 16px auto 0;
+			color: var(--muted);
+			font-size: 13px;
+			text-align: center
+		}
+
+		/* responsive */
+		@media (max-width:700px) {
+			body {
+				padding: 16px
+			}
+
+			.page-title {
+				font-size: 16px
+			}
 		}
 	</style>
 </head>
 
 <body>
+	<header>
+		<div class="brand">
+			<img src="resources/images/icon.jpeg" alt="Logo" style="width:50px;height:50px;">
+			<div>
+				<h1 class="page-title">Optimal Path to finish a Dead God run — Checklist</h1>
+			</div>
+		</div>
+		<div class="controls">
+			<button id="clearBtn" class="btn">Clear progress</button>
+			<button id="themeToggle" class="btn">Toggle theme</button>
+		</div>
+	</header>
 
-	<div class="container">
-		<h1>Dead God Guide</h1>
-		<p>This guide will help you navigate through the steps to defeat the Dead God. Follow each step in order, and check
-			them off as you complete them. Your progress will be saved automatically.</p>
+	<main id="main">
 
-		<title>Contents</title>
-		<ul>
-			<li>
-				<a href="" target="_blank">Miscellaneous Unlocks</a> - things you should always prioritize if given the
-				opportunity
-			</li>
-			<li>
-				<a href="" target="_blank">Daily Runs</a> - long unlocks that take a while to do
-			</li>
-			<li>
-				<a href="" target="_blank">Things to avoid</a> - unlocks that are not great or actively bad
-			</li>
-			<li>
-				<a href="" target="_blank">Runes to unlock first</a> - getting 6 runes unlocked prevents rune shard from
-				spawning
-			</li>
-			<li>
-				<a href="" target="_blank">Challenges to finish asap when unlocked</a> - some of the good challenges unlocked
-				by default
-			</li>
-			<li>
-				<a href="" target="_blank">Early progression/mechanic unlocks</a> - things needed to unlock most other
-				stuff/very useful mechanics to unlock
-			</li>
-			<li>
-				<a href="" target="_blank">Character Unlocks</a> - unlocking most regular characters is first big priority
-			</li>
-			<li>
-				<a href="" target="_blank">Early Completion Marks</a> - strong unlocks that will help you win more runs, after
-				you unlock <code>It Lives but</code> before unlocking Keeper/Lost's Holy Mantle
-			</li>
-			<li>
-				<a href="" target="_blank">Tainted Character Unlocks</a> - should be done once most regular characters/strong
-				items are unlocked and while defeating The Beast with all regular characters
-			</li>
-			<li>
-				<a href="" target="_blank">Greed(ier) Mode</a> - greed mode can be done whenever, greedier should wait till
-				most strong items/tainted characters are unlocked
-			</li>
-			<li>
-				<a href="" target="_blank">Miscellaneous Unlocks 2</a> - unlocks that aren't super important, but should be
-				paid attention to as they are more rare opportunities
-			<li>
-				<a href="" target="_blank">Later Completion Marks</a> - includes Keeper/Lost and all Tainted Character
-			</li>
-		</ul>
-	</div>
+		<!-- Intro -->
+		<section class="container" data-section="intro">
+			<div class="section-head">
+				<div class="section-title">
+					<button class="toggle-btn" data-target="intro-body" aria-expanded="true">▾</button>
+					<h2 style="margin:0">Intro</h2>
+				</div>
+			</div>
+			<div id="intro-body" class="collapsible" style="max-height:1000px">
+				<span class="text">Guide helps reach Dead God from a fresh save file, focusing on optimal unlock order and
+					pathing. </span><br><br>
+				<span class="text">Assumes you'll play on Hard/Greedier and prefer efficiency over casual play.</span><br><br>
+				<span class="text">Flow: challenges & dailies → unlock characters → completion marks → tainted
+					characters/greed donations → finish remaining unlocks.</span>
+			</div>
+		</section>
 
+		<!-- Miscellaneous Unlocks -->
+		<section class="container" data-section="misc-unlocks">
+			<div class="section-head">
+				<div class="section-title">
+					<button class="toggle-btn" data-target="mu-body" aria-expanded="true">▾</button>
+					<h2 style="margin:0">Miscellaneous Unlocks</h2>
+				</div>
+			</div>
+			<div id="mu-body" class="collapsible" style="max-height:1000px">
+				<ul class="checklist" id="misc-unlocks">
+					<li><label class="item"><input type="checkbox" id="mu-1"><span class="text">Donation Machine: prioritize
+								upgrading for better shops.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="mu-2"><span class="text">The Lost: die in a sacrifice room
+								while holding Missing Poster.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="mu-3"><span class="text">Ace of Clubs: win three runs in a
+								row.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="mu-4"><span class="text">Super Tinted Rocks: win five runs
+								in a row with separate characters.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="mu-5"><span class="text">The Halo: defeat Mom or It Lives
+								with The Bible.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="mu-6"><span class="text">Gulp! Pills: complete a Victory
+								Lap.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="mu-7"><span class="text">Marbles: use 5 Gulp! pills in one
+								run (cheeseable in Greed with Lazarus).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="mu-8"><span class="text">Huge Growth: increase size 5 times
+								in a run.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="mu-9"><span class="text">Counterfeit Penny: play shell/hell
+								game 100 times.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="mu-10"><span class="text">Planetariums: obtain 2
+								tarot/zodiac items in one run.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="mu-11"><span class="text">Tech 0: obtain 2
+								robo-baby/technology items in one run.</span></label></li>
+				</ul>
+			</div>
+		</section>
 
-	<div class="container">
-		<h1>Checklist</h1>
-		<ul id="checklist">
-			<li>
-				<label>
-					<input type="checkbox" data-step="0">
-					<b>Donation Machine</b> you should prioritize upgrading your donation machine to get consistently better shops
-					for all your runs.
-				</label>
-			</li>
-			<li class="hidden">
-				<label>
-					<input type="checkbox" data-step="1">
-					<b>The Lost</b> dying in a sacrifice room while holding Missing Poster (don't need to die to spikes
-					specifically)
-				</label>
-			</li>
-			<li class="hidden">
-				<label>
-					<input type="checkbox" data-step="2">
-					<b>Ace of Clubs</b> win three runs in a row
-				</label>
-		</ul>
-	</div>
+		<!-- Daily Runs -->
+		<section class="container" data-section="daily-runs">
+			<div class="section-head">
+				<div class="section-title"><button class="toggle-btn" data-target="dr-body" aria-expanded="true">▾</button>
+					<h2 style="margin:0">Daily Runs</h2>
+				</div>
+			</div>
+			<div id="dr-body" class="collapsible" style="max-height:1000px">
+				<ul class="checklist" id="daily-runs">
+					<li><label class="item"><input type="checkbox" id="dr-1"><span class="text">Cracked Crown: get a 5-win streak
+								in daily runs.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="dr-2"><span class="text">Broken Modem: complete 7 daily
+								runs.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="dr-3"><span class="text">Horf! pill: participate in 31
+								daily runs.</span></label></li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Things to avoid -->
+		<section class="container" data-section="things-to-avoid">
+			<div class="section-head">
+				<div class="section-title"><button class="toggle-btn" data-target="avoid-body" aria-expanded="true">▾</button>
+					<h2 style="margin:0">Things to avoid</h2>
+				</div>
+			</div>
+			<div id="avoid-body" class="collapsible" style="max-height:1000px">
+				<ul class="checklist" id="avoid">
+					<li><label class="item"><input type="checkbox" id="av-1"><span class="text">Corrupted Data: Defeat Delirium
+								with Tainted Eden (very bad).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="av-2"><span class="text">Re-lax / ??? pills: Complete
+								Challenge #25: Have a Heart.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="av-3"><span class="text">Rules Card: Complete Challenge
+								#11: Glass Cannon.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="av-4"><span class="text">Suicide King: Complete Challenge
+								#7: Suicide King.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="av-5"><span class="text">Scared Hearts: Reset 7 times in a
+								row.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="av-6"><span class="text">Scissors: Die 100
+								times.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="av-7"><span class="text">Various bad Boss Rush / challenge
+								combos (Missing No., Isaac's Head, etc.).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="av-8"><span class="text">Shade / Berkano / TMTRAINER / Torn
+								Card / IBS — avoid until you understand consequences.</span></label></li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Runes to unlock first -->
+		<section class="container" data-section="runes">
+			<div class="section-head">
+				<div class="section-title"><button class="toggle-btn" data-target="runes-body" aria-expanded="true">▾</button>
+					<h2 style="margin:0">Runes to unlock first</h2>
+				</div>
+			</div>
+			<div id="runes-body" class="collapsible" style="max-height:1000px">
+				<ul class="checklist" id="runes">
+					<li><label class="item"><input type="checkbox" id="rn-1"><span class="text">Jera: complete challenge #2 - High
+								Brow (unlocked at start).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="rn-2"><span class="text">Ehwaz: complete challenge #3 -
+								Head Trauma (unlocked at start).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="rn-3"><span class="text">Ansuz: challenge #5 - The Tank (7+
+								heart containers / Magdalene).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="rn-4"><span class="text">Blank/Clear Rune: challenge #30 -
+								The Guardian (defeat Mom).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="rn-5"><span class="text">Perthro: challenge #6 - Solar
+								System (defeat Mom's Heart 3x).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="rn-6"><span class="text">Dagaz: challenge #4 - Darkness
+								Falls (defeat Mom's Heart 11x, ??? as Eve).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="rn-7"><span class="text">Algiz: challenge #8 - Cat Got Your
+								Tongue (become Guppy).</span></label></li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Challenges to finish asap -->
+		<section class="container" data-section="challenges">
+			<div class="section-head">
+				<div class="section-title"><button class="toggle-btn" data-target="ch-body" aria-expanded="true">▾</button>
+					<h2 style="margin:0">Challenges to finish asap when unlocked</h2>
+				</div>
+			</div>
+			<div id="ch-body" class="collapsible" style="max-height:1000px">
+				<ul class="checklist" id="challenges">
+					<li><label class="item"><input type="checkbox" id="ch-1"><span class="text">A Card Against Humanity: #12 -
+								When Life Gives You Lemons (start).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-2"><span class="text">Burnt Penny: #13 - Beans!
+								(start).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-3"><span class="text">SMB Super Fan: #14 - It's in the
+								Cards (start).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-4"><span class="text">Death's Touch: #17 - Waka Waka
+								(start).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-5"><span class="text">Technology .5: #18 - The Host
+								(start).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-6"><span class="text">Chaos Card: #9 - Demo Man (defeat
+								Mom's Heart 9x).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-7"><span class="text">Credit Card: #10 - Cursed! (unlock
+								Magdalene).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-8"><span class="text">Epic Fetus: #19 - The Family Man
+								(both angel key pieces in one run).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-9"><span class="text">Sigil of Baphomet: #37 - Bloody
+								Mary (unlock Bethany, Blood Bag, It Lives).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-10"><span class="text">VIII - Justice?: #43 - Cantripped
+								(unlock Tainted Cain).</span></label></li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Early progression/mechanic unlocks -->
+		<section class="container" data-section="early-prog">
+			<div class="section-head">
+				<div class="section-title"><button class="toggle-btn" data-target="ep-body" aria-expanded="true">▾</button>
+					<h2 style="margin:0">Early progression / mechanic unlocks</h2>
+				</div>
+			</div>
+			<div id="ep-body" class="collapsible" style="max-height:1000px">
+				<ul class="checklist" id="early-prog">
+					<li><label class="item"><input type="checkbox" id="ep-1"><span class="text">Lucky Pennies: donate 2¢ to Greed
+								donation machine (Azazel to also unlock Lilith).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ep-2"><span class="text">Store Upgrade 1: donate 20¢ to
+								donation machine.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ep-3"><span class="text">Polaroid: defeat Isaac 5 times
+								(need angel deals).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ep-4"><span class="text">Negative: defeat Satan 5 times
+								(need devil deals).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ep-5"><span class="text">The Void: defeat Hush
+								(requirements: beat Mom's Heart 10x & then within 30 minutes).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ep-6"><span class="text">Missing Poster: defeat The Lamb as
+								Isaac (need Negative).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ep-7"><span class="text">Corpse: defeat Hush 3
+								times.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ep-8"><span class="text">Dad's Note: defeat
+								Mother.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ep-9"><span class="text">Greedier Mode: donate 500 coins to
+								greed donation machine.</span></label></li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Character Unlocks -->
+		<section class="container" data-section="characters">
+			<div class="section-head">
+				<div class="section-title"><button class="toggle-btn" data-target="char-body" aria-expanded="true">▾</button>
+					<h2 style="margin:0">Character Unlocks</h2>
+				</div>
+			</div>
+			<div id="char-body" class="collapsible" style="max-height:1000px">
+				<ul class="checklist" id="characters">
+					<li><label class="item"><input type="checkbox" id="ch-un-1"><span class="text">Magdalene: have 7+ red heart
+								containers.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-2"><span class="text">Cain: hold 55
+								coins.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-3"><span class="text">Eve: don't pick up any hearts
+								for 2 floors in a row.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-4"><span class="text">Samson: complete 2 floors in a
+								row without damage.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-5"><span class="text">Azazel: make 3 deals with the
+								devil in one run.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-6"><span class="text">Lazarus: have >4 soul hearts at
+								once.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-7"><span class="text">Judas: defeat
+								Satan.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-8"><span class="text">Eden: complete chapter 4
+								(Womb).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-9"><span class="text">Bethany: defeat Mom's Heart/It
+								Lives on Hard as Lazarus without dying.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-10"><span class="text">???: defeat Mom's Heart 10
+								times.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-11"><span class="text">The Lost: die in a sacrifice
+								room while holding Missing Poster.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-12"><span class="text">Lilith: defeat Ultra Greed as
+								Azazel.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-13"><span class="text">Keeper: donate 1000 coins to
+								greed donation machine.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-14"><span class="text">Apollyon: defeat Mega
+								Satan.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-15"><span class="text">The Forgotten: requires
+								Negative unlocked.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ch-un-16"><span class="text">Jacob & Esau: defeat Mother
+								(need Corpse unlocked).</span></label></li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Early Completion Marks -->
+		<section class="container" data-section="early-marks">
+			<div class="section-head">
+				<div class="section-title"><button class="toggle-btn" data-target="em-body" aria-expanded="true">▾</button>
+					<h2 style="margin:0">Early Completion Marks</h2>
+				</div>
+			</div>
+			<div id="em-body" class="collapsible" style="max-height:1000px">
+				<ul class="checklist" id="early-marks">
+					<li><label class="item"><input type="checkbox" id="em-1"><span class="text">Isaac starts with D6: defeat Isaac
+								as ???.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-2"><span class="text">Mom's Knife: defeat Satan as
+								Isaac.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-3"><span class="text">Missing Poster: defeat Lamb as
+								Isaac.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-4"><span class="text">D20: defeat ??? as
+								Isaac.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-5"><span class="text">D Infinity: defeat Delirium as
+								Isaac.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-6"><span class="text">The Relic: defeat Isaac as
+								Magdalene.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-7"><span class="text">Purity: defeat Hush as
+								Magdalene.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-8"><span class="text">Eucharist: defeat Delirium as
+								Magdalene.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-9"><span class="text">Judas' Shadow: defeat Boss Rush as
+								Judas.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-10"><span class="text">The Nail: defeat Boss Rush as
+								Azazel.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-11"><span class="text">Pandora's Box: defeat Lamb as
+								Lazarus.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-12"><span class="text">Empty Vessel: defeat Hush as
+								Lazarus.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-13"><span class="text">Book of Secrets: defeat Satan as
+								Eden.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-14"><span class="text">Blank Card: defeat Isaac as
+								Eden.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-15"><span class="text">Succubus / Incubus / Euthanasia /
+								C Section (Lilith rewards).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-16"><span class="text">Smelter / Void (Apollyon
+								rewards).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="em-17"><span class="text">Compound Fracture: defeat
+								Delirium as Lazarus.</span></label></li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Tainted Character Unlocks -->
+		<section class="container" data-section="tainted-unlocks">
+			<div class="section-head">
+				<div class="section-title"><button class="toggle-btn" data-target="t-body" aria-expanded="true">▾</button>
+					<h2 style="margin:0">Tainted Character Unlocks</h2>
+				</div>
+			</div>
+			<div id="t-body" class="collapsible" style="max-height:1000px">
+				<ul class="checklist" id="tainted-unlocks">
+					<li><label class="item"><input type="checkbox" id="ta-1"><span class="text">Unlock tainted characters using
+								cracked key/red key in left Home hallway.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ta-2"><span class="text">Unlock while regular character
+								fights The Beast; order not important.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="ta-3"><span class="text">Recommendation: wait until many
+								early completion marks are done; avoid The Lost until Greed donation gives Holy Mantle.</span></label>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Greed(ier) Mode -->
+		<section class="container" data-section="greed-mode">
+			<div class="section-head">
+				<div class="section-title"><button class="toggle-btn" data-target="g-body" aria-expanded="true">▾</button>
+					<h2 style="margin:0">Greed(ier) Mode</h2>
+				</div>
+			</div>
+			<div id="g-body" class="collapsible" style="max-height:1000px">
+				<ul class="checklist" id="greed-mode">
+					<li><label class="item"><input type="checkbox" id="gm-1"><span class="text">Donate early with Azazel to unlock
+								Lilith (lucky pennies, hanging shopkeepers).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="gm-2"><span class="text">Donate 500 coins to unlock
+								Greedier Mode.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="gm-3"><span class="text">Greed donation unlocks overview:
+								Wooden Nickel (33), Paperclip (68), Everything is Terrible 2 (111), Special Shopkeepers (234), Razor
+								Blade (439), Greedier (500), Store Key (666), Lost Holy Mantle (879), Keeper (1000).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="gm-4"><span class="text">After Greedier unlocked: prefer
+								Greedier mode due to lower jamming risk; consider delaying finishing until Keeper/Lost/Tainted unlocks
+								completed.</span></label></li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Miscellaneous Unlocks 2 -->
+		<section class="container" data-section="misc-2">
+			<div class="section-head">
+				<div class="section-title"><button class="toggle-btn" data-target="m2-body" aria-expanded="true">▾</button>
+					<h2 style="margin:0">Miscellaneous Unlocks 2</h2>
+				</div>
+			</div>
+			<div id="m2-body" class="collapsible" style="max-height:1000px">
+				<ul class="checklist" id="misc-2">
+					<li>
+						<label class="item"><input type="checkbox" id="m2-1">
+							<span class="text">Ace of Diamonds: defeat the Lamb within 20 minutes.</span>
+						</label>
+					</li>
+					<li>
+						<label class="item"><input type="checkbox" id="m2-2">
+							<span class="text">Ace of Spades: defeat the Lamb without picking up any heart, bomb, or coin.</span>
+						</label>
+					</li>
+					<li>
+						<label class="item"><input type="checkbox" id="m2-3"><span class="text">Redemption: unlocked via specific
+								Judas confessional/angel room manipulation (beat The Beast with Judas).</span>
+						</label>
+					</li>
+					<li>
+						<label class="item"><input type="checkbox" id="m2-4"><span class="text">Plum Flute: avoid hurting Baby
+								Plum ~30s in boss fight; she flies away and leaves the item.</span>
+						</label>
+					</li>
+					<li>
+						<label class="item"><input type="checkbox" id="m2-5"><span class="text">Charged Penny: donate to battery
+								bums until items pay out 5 times.</span>
+						</label>
+					</li>
+					<li>
+						<label class="item"><input type="checkbox" id="m2-6"><span class="text">Moving Box: use Pandora's Box in
+								Dark Room.</span>
+						</label>
+					</li>
+					<li>
+						<label class="item"><input type="checkbox" id="m2-7"><span class="text">Blinding Baby: use Blank Card
+								while holding XIX - The Sun.</span>
+						</label>
+					</li>
+					<li>
+						<label class="item"><input type="checkbox" id="m2-8"><span class="text">Brimstone Bombs: defeat Hornfel in
+								the Mines and kill him before he escapes.</span>
+						</label>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Later Completion Marks -->
+		<section class="container" data-section="later-marks">
+			<div class="section-head">
+				<div class="section-title"><button class="toggle-btn" data-target="lm-body" aria-expanded="true">▾</button>
+					<h2 style="margin:0">Later Completion Marks</h2>
+				</div>
+			</div>
+			<div id="lm-body" class="collapsible" style="max-height:1000px">
+				<ul class="checklist" id="later-marks">
+					<li><label class="item"><input type="checkbox" id="lm-1"><span class="text">Crane Game: defeat Mega Satan as
+								Tainted Samson.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="lm-2"><span class="text">Strange Key: defeat Lamb/??? as
+								Tainted Eve.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="lm-3"><span class="text">Golden Penny: defeat Mega Satan as
+								Tainted Keeper.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="lm-4"><span class="text">Confessional: defeat Mega Satan as
+								Tainted Bethany.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="lm-5"><span class="text">Keeper holds Wooden Nickel: defeat
+								Isaac as Keeper.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="lm-6"><span class="text">Godhead: get all completion marks
+								on Lost on Hard mode.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="lm-7"><span class="text">Various tainted Mega Satan / Beast
+								/ Delirium rewards (see guide for specifics).</span></label></li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Quality of Life Mods -->
+		<section class="container" data-section="qol-mods">
+			<div class="section-head">
+				<div class="section-title"><button class="toggle-btn" data-target="qol-body" aria-expanded="true">▾</button>
+					<h2 style="margin:0">Quality of Life Mods I use</h2>
+				</div>
+			</div>
+			<div id="qol-body" class="collapsible" style="max-height:1000px">
+				<ul class="checklist" id="qol-mods">
+					<li><label class="item"><input type="checkbox" id="qm-1"><span class="text">External Item Descriptions
+								(AB+|Rep(+)): improved in-game descriptions.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="qm-2"><span class="text">Range fix for Bones & Sword:
+								bugfix for melee/range interactions.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="qm-3"><span class="text">Coming Down! [Rework]: shows
+								stomping attack icons (accessibility).</span></label></li>
+					<li><label class="item"><input type="checkbox" id="qm-4"><span class="text">Silent Dog Tooth: helps when
+								playing without audio.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="qm-5"><span class="text">Boss Rush Wave Counter, Enhanced
+								Boss Bars, cosmetic or small QoL mods.</span></label></li>
+					<li><label class="item"><input type="checkbox" id="qm-6"><span class="text">Mod Config Menu Pure: used to
+								configure other mods.</span></label></li>
+				</ul>
+			</div>
+		</section>
+
+	</main>
+
 	<script>
-		const checklist = document.getElementById('checklist');
-		const steps = checklist.querySelectorAll('input[type="checkbox"]');
-		const STORAGE_KEY = 'checklist-progress';
+		/* Storage keys */
+		const CHECK_KEY = "deadgod.check.v3";
+		const THEME_KEY = "deadgod.theme.v3";
+		const COLLAPSE_KEY = "deadgod.collapse.v3";
 
-		// Load progress from localStorage
-		function loadProgress() {
-			const saved = localStorage.getItem(STORAGE_KEY);
-			if (!saved) return;
-			const checkedSteps = JSON.parse(saved);
-			steps.forEach((checkbox, idx) => {
-				checkbox.checked = !!checkedSteps[idx];
-				// Show step if previous is checked
-				if (idx === 0 || checkedSteps[idx - 1]) {
-					checkbox.closest('li').classList.remove('hidden');
-				} else {
-					checkbox.closest('li').classList.add('hidden');
-				}
+		/* helpers */
+		const $ = sel => document.querySelector(sel);
+		const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+		/* load/save checkbox state */
+		function loadChecks() {
+			try {
+				const raw = localStorage.getItem(CHECK_KEY);
+				if (!raw) return {};
+				return JSON.parse(raw);
+			} catch (e) { console.warn("parse error", e); return {}; }
+		}
+		function saveChecks(state) {
+			try { localStorage.setItem(CHECK_KEY, JSON.stringify(state)); } catch (e) { console.warn("save failed", e); }
+		}
+
+		/* initialize checkboxes */
+		const checkState = loadChecks();
+		$$('input[type="checkbox"]').forEach(cb => {
+			if (checkState[cb.id]) cb.checked = true;
+			cb.addEventListener('change', () => {
+				checkState[cb.id] = !!cb.checked;
+				saveChecks(checkState);
 			});
-		}
-
-		// Save progress to localStorage
-		function saveProgress() {
-			const checkedSteps = Array.from(steps).map(cb => cb.checked);
-			localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedSteps));
-		}
-
-		checklist.addEventListener('change', function (e) {
-			if (e.target.matches('input[type="checkbox"]')) {
-				const step = parseInt(e.target.getAttribute('data-step'), 10);
-				if (e.target.checked) {
-					const nextLi = checklist.querySelector(`li:nth-child(${step + 2})`);
-					if (nextLi) nextLi.classList.remove('hidden');
-				} else {
-					// Unchecking hides all later steps
-					for (let i = step + 1; i < checklist.children.length; i++) {
-						checklist.children[i].classList.add('hidden');
-						checklist.children[i].querySelector('input').checked = false;
-					}
-				}
-				saveProgress();
-			}
 		});
 
-		// Initialize checklist on page load
-		loadProgress();
+		/* theme */
+		function applyTheme(t) {
+			if (t === "dark") document.documentElement.classList.add('dark');
+			else document.documentElement.classList.remove('dark');
+			try { localStorage.setItem(THEME_KEY, t); } catch (e) { }
+		}
+		function loadTheme() {
+			const t = localStorage.getItem(THEME_KEY) || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+			applyTheme(t);
+		}
+		$('#themeToggle').addEventListener('click', () => {
+			const isDark = document.documentElement.classList.contains('dark');
+			applyTheme(isDark ? 'light' : 'dark');
+		});
+		loadTheme();
+
+		/* collapse / expand sections with icon buttons; save collapsed state */
+		function loadCollapseState() { try { return JSON.parse(localStorage.getItem(COLLAPSE_KEY) || "{}"); } catch (e) { return {}; } }
+		function saveCollapseState(obj) { try { localStorage.setItem(COLLAPSE_KEY, JSON.stringify(obj)); } catch (e) { } }
+		const collapseState = loadCollapseState();
+
+		$$('.toggle-btn').forEach(btn => {
+			const targetId = btn.getAttribute('data-target');
+			const region = document.getElementById(targetId);
+			// default open (unless saved otherwise)
+			const saved = collapseState[targetId];
+			if (saved === false || saved === "open" || saved === undefined) {
+				region.style.maxHeight = region.scrollHeight + "px";
+				btn.textContent = "▾";
+				btn.setAttribute('aria-expanded', 'true');
+			} else {
+				region.style.maxHeight = "0px";
+				btn.textContent = "▸";
+				btn.setAttribute('aria-expanded', 'false');
+			}
+
+			btn.addEventListener('click', () => {
+				const isOpen = btn.getAttribute('aria-expanded') === 'true';
+				if (isOpen) {
+					// close
+					region.style.maxHeight = "0px";
+					btn.textContent = "▸";
+					btn.setAttribute('aria-expanded', 'false');
+					collapseState[targetId] = false;
+				} else {
+					// open
+					region.style.maxHeight = region.scrollHeight + "px";
+					btn.textContent = "▾";
+					btn.setAttribute('aria-expanded', 'true');
+					collapseState[targetId] = true;
+				}
+				saveCollapseState(collapseState);
+			});
+
+			// adjust maxHeight on window resize (keeps open sections sized correctly)
+			window.addEventListener('resize', () => {
+				if (btn.getAttribute('aria-expanded') === 'true') {
+					region.style.maxHeight = region.scrollHeight + "px";
+				}
+			});
+		});
+
+		/* Clear progress (checkboxes only) */
+		$('#clearBtn').addEventListener('click', () => {
+			if (!confirm("Clear all saved checklist progress? This will uncheck all boxes.")) return;
+			try { localStorage.removeItem(CHECK_KEY); } catch (e) { }
+			$$('input[type="checkbox"]').forEach(cb => cb.checked = false);
+		});
+
+		/* ensure collapsible sections compute their scrollHeight one last time after load */
+		window.addEventListener('load', () => {
+			$$('section .collapsible').forEach(r => {
+				if (r.style.maxHeight && r.style.maxHeight !== "0px") {
+					r.style.maxHeight = r.scrollHeight + "px";
+				}
+			});
+		});
 	</script>
 </body>
 
