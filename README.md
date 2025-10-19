@@ -1,1 +1,1 @@
-# [deadgod-guide.github.io](https://deadgod-guide.github.io)
+# [deadgod-guide.github.io](https://dead-god-guide.github.io/home/)
