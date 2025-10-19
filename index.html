@@ -178,9 +178,52 @@
 		}
 
 		input[type="checkbox"] {
-			width: 18px;
-			height: 18px;
-			accent-color: var(--accent)
+			/* custom Isaac-like checkbox */
+			-webkit-appearance: none;
+			appearance: none;
+			width: 22px;
+			height: 22px;
+			margin: 0;
+			flex: none;
+			border-radius: 6px;
+			border: 2px solid rgba(0, 0, 0, 0.2);
+			background: linear-gradient(180deg, #fffef9 0%, #e6e9f2 100%);
+			box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.6), 0 6px 12px rgba(2, 6, 23, 0.06);
+			cursor: pointer;
+			transition: transform 80ms linear, box-shadow 120ms linear, background 120ms linear;
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		input[type="checkbox"]:hover {
+			transform: translateY(-1px);
+			box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.6), 0 8px 18px rgba(2, 6, 23, 0.08);
+		}
+
+		input[type="checkbox"]:focus {
+			outline: none;
+			box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12), inset 0 2px 0 rgba(255, 255, 255, 0.6);
+		}
+
+		/* checked state shows a small 'Isaac-style' heart icon */
+		input[type="checkbox"]:checked {
+			background: linear-gradient(180deg, #ffecec 0%, #ffbdbd 100%);
+			border-color: #b22f2f;
+			box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.25), 0 8px 18px rgba(0, 0, 0, 0.12);
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: 58%;
+			/* small heart SVG (colour encoded) */
+			background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'><path fill='%23ffffff' stroke='%23b22f2f' stroke-width='2' d='M23.6 2c-2.8 0-4.6 2.1-5.6 3.2C16.9 4.1 15.1 2 12.4 2 8.4 2 5.6 5.1 5.6 9.1c0 6.6 9.1 12.6 11.8 14.5 2.7-1.9 11.8-7.9 11.8-14.5C28.4 5.1 25.6 2 23.6 2z'/></svg>");
+		}
+
+		/* slightly smaller checkboxes on narrow screens */
+		@media (max-width:700px) {
+			input[type="checkbox"] {
+				width: 18px;
+				height: 18px;
+				border-radius: 5px;
+			}
 		}
 
 		.meta {
@@ -208,6 +251,10 @@
 			}
 		}
 	</style>
+	<link rel="apple-touch-icon" sizes="180x180" href="resources/images/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="resources/images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
 </head>
 
 <body>
@@ -718,14 +765,15 @@
 			const region = document.getElementById(targetId);
 			// default open (unless saved otherwise)
 			const saved = collapseState[targetId];
-			if (saved === false || saved === "open" || saved === undefined) {
-				region.style.maxHeight = region.scrollHeight + "px";
-				btn.textContent = "▾";
-				btn.setAttribute('aria-expanded', 'true');
-			} else {
+			// open when saved is true (or not present), close when explicitly false
+			if (saved === false || saved === "closed" || saved === undefined) {
 				region.style.maxHeight = "0px";
 				btn.textContent = "▸";
 				btn.setAttribute('aria-expanded', 'false');
+			} else {
+				region.style.maxHeight = region.scrollHeight + "px";
+				btn.textContent = "▾";
+				btn.setAttribute('aria-expanded', 'true');
 			}
 
 			btn.addEventListener('click', () => {
