@@ -106,7 +106,6 @@
 			padding: 16px;
 			box-shadow: var(--shadow);
 			border: 1px solid rgba(0, 0, 0, 0.04);
-			/* background-image: url('resources/images/background.jpg'); */
 		}
 
 		.section-head {
@@ -142,7 +141,8 @@
 
 		.collapsible {
 			overflow: hidden;
-			transition: max-height 220ms ease
+			transition: max-height 220ms ease;
+			max-height: 0;
 		}
 
 		ul.checklist {
@@ -179,7 +179,6 @@
 		}
 
 		input[type="checkbox"] {
-			/* custom Isaac-like checkbox */
 			-webkit-appearance: none;
 			appearance: none;
 			width: 22px;
@@ -206,7 +205,6 @@
 			box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12), inset 0 2px 0 rgba(255, 255, 255, 0.6);
 		}
 
-		/* checked state shows a small 'Isaac-style' heart icon */
 		input[type="checkbox"]:checked {
 			background: linear-gradient(180deg, #ffecec 0%, #ffbdbd 100%);
 			border-color: #b22f2f;
@@ -214,16 +212,22 @@
 			background-repeat: no-repeat;
 			background-position: center;
 			background-size: 58%;
-			/* small heart SVG (colour encoded) */
 			background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'><path fill='%23ffffff' stroke='%23b22f2f' stroke-width='2' d='M23.6 2c-2.8 0-4.6 2.1-5.6 3.2C16.9 4.1 15.1 2 12.4 2 8.4 2 5.6 5.1 5.6 9.1c0 6.6 9.1 12.6 11.8 14.5 2.7-1.9 11.8-7.9 11.8-14.5C28.4 5.1 25.6 2 23.6 2z'/></svg>");
 		}
 
-		/* slightly smaller checkboxes on narrow screens */
 		@media (max-width:700px) {
 			input[type="checkbox"] {
 				width: 18px;
 				height: 18px;
 				border-radius: 5px;
+			}
+
+			body {
+				padding: 16px
+			}
+
+			.page-title {
+				font-size: 16px
 			}
 		}
 
@@ -239,17 +243,6 @@
 			color: var(--muted);
 			font-size: 13px;
 			text-align: center
-		}
-
-		/* responsive */
-		@media (max-width:700px) {
-			body {
-				padding: 16px
-			}
-
-			.page-title {
-				font-size: 16px
-			}
 		}
 	</style>
 	<link rel="apple-touch-icon" sizes="180x180" href="resources/images/apple-touch-icon.png">
@@ -274,23 +267,6 @@
 
 	<main id="main">
 
-		<!-- Intro -->
-		<section class="container" data-section="intro">
-			<div class="section-head">
-				<div class="section-title">
-					<button class="toggle-btn" data-target="intro-body" aria-expanded="true">▾</button>
-					<h2>Intro</h2>
-				</div>
-			</div>
-			<div id="intro-body" class="collapsible" style="max-height:1000px">
-				<span class="text">Guide helps reach Dead God from a fresh save file, focusing on optimal unlock order and
-					pathing. </span><br><br>
-				<span class="text">Assumes you'll play on Hard/Greedier and prefer efficiency over casual play.</span><br><br>
-				<span class="text">Flow: challenges & dailies → unlock characters → completion marks → tainted
-					characters/greed donations → finish remaining unlocks.</span>
-			</div>
-		</section>
-
 		<!-- Miscellaneous Unlocks -->
 		<section class="container" data-section="misc-unlocks">
 			<div class="section-head">
@@ -299,7 +275,7 @@
 					<h2>Miscellaneous Unlocks</h2>
 				</div>
 			</div>
-			<div id="mu-body" class="collapsible" style="max-height:1000px">
+			<div id="mu-body" class="collapsible">
 				<ul class="checklist" id="misc-unlocks">
 					<li><label class="item"><input type="checkbox" id="mu-1"><span class="text">Donation Machine: prioritize
 								upgrading for better shops.</span></label></li>
@@ -334,7 +310,7 @@
 					<h2>Daily Runs</h2>
 				</div>
 			</div>
-			<div id="dr-body" class="collapsible" style="max-height:1000px">
+			<div id="dr-body" class="collapsible">
 				<ul class="checklist" id="daily-runs">
 					<li><label class="item"><input type="checkbox" id="dr-1"><span class="text">Cracked Crown: get a 5-win streak
 								in daily runs.</span></label></li>
@@ -353,7 +329,7 @@
 					<h2>Things to avoid</h2>
 				</div>
 			</div>
-			<div id="avoid-body" class="collapsible" style="max-height:1000px">
+			<div id="avoid-body" class="collapsible">
 				<ul class="checklist" id="avoid">
 					<li><label class="item"><input type="checkbox" id="av-1"><span class="text">Corrupted Data: Defeat Delirium
 								with Tainted Eden (very bad).</span></label></li>
@@ -382,7 +358,7 @@
 					<h2>Runes to unlock first</h2>
 				</div>
 			</div>
-			<div id="runes-body" class="collapsible" style="max-height:1000px">
+			<div id="runes-body" class="collapsible">
 				<ul class="checklist" id="runes">
 					<li><label class="item"><input type="checkbox" id="rn-1"><span class="text">Jera: complete challenge #2 - High
 								Brow (unlocked at start).</span></label></li>
@@ -409,7 +385,7 @@
 					<h2>Challenges to finish asap when unlocked</h2>
 				</div>
 			</div>
-			<div id="ch-body" class="collapsible" style="max-height:1000px">
+			<div id="ch-body" class="collapsible">
 				<ul class="checklist" id="challenges">
 					<li><label class="item"><input type="checkbox" id="ch-1"><span class="text">A Card Against Humanity: #12 -
 								When Life Gives You Lemons (start).</span></label></li>
@@ -442,7 +418,7 @@
 					<h2>Early progression / mechanic unlocks</h2>
 				</div>
 			</div>
-			<div id="ep-body" class="collapsible" style="max-height:1000px">
+			<div id="ep-body" class="collapsible">
 				<ul class="checklist" id="early-prog">
 					<li><label class="item"><input type="checkbox" id="ep-1"><span class="text">Lucky Pennies: donate 2¢ to Greed
 								donation machine (Azazel to also unlock Lilith).</span></label></li>
@@ -473,7 +449,7 @@
 					<h2>Character Unlocks</h2>
 				</div>
 			</div>
-			<div id="char-body" class="collapsible" style="max-height:1000px">
+			<div id="char-body" class="collapsible">
 				<ul class="checklist" id="characters">
 					<li><label class="item"><input type="checkbox" id="ch-un-1"><span class="text">Magdalene: have 7+ red heart
 								containers.</span></label></li>
@@ -518,7 +494,7 @@
 					<h2>Early Completion Marks</h2>
 				</div>
 			</div>
-			<div id="em-body" class="collapsible" style="max-height:1000px">
+			<div id="em-body" class="collapsible">
 				<ul class="checklist" id="early-marks">
 					<li><label class="item"><input type="checkbox" id="em-1"><span class="text">Isaac starts with D6: defeat Isaac
 								as ???.</span></label></li>
@@ -565,7 +541,7 @@
 					<h2>Tainted Character Unlocks</h2>
 				</div>
 			</div>
-			<div id="t-body" class="collapsible" style="max-height:1000px">
+			<div id="t-body" class="collapsible">
 				<ul class="checklist" id="tainted-unlocks">
 					<li><label class="item"><input type="checkbox" id="ta-1"><span class="text">Unlock tainted characters using
 								cracked key/red key in left Home hallway.</span></label></li>
@@ -585,7 +561,7 @@
 					<h2>Greed(ier) Mode</h2>
 				</div>
 			</div>
-			<div id="g-body" class="collapsible" style="max-height:1000px">
+			<div id="g-body" class="collapsible">
 				<ul class="checklist" id="greed-mode">
 					<li><label class="item"><input type="checkbox" id="gm-1"><span class="text">Donate early with Azazel to unlock
 								Lilith (lucky pennies, hanging shopkeepers).</span></label></li>
@@ -608,7 +584,7 @@
 					<h2>Miscellaneous Unlocks 2</h2>
 				</div>
 			</div>
-			<div id="m2-body" class="collapsible" style="max-height:1000px">
+			<div id="m2-body" class="collapsible">
 				<ul class="checklist" id="misc-2">
 					<li>
 						<label class="item"><input type="checkbox" id="m2-1">
@@ -661,7 +637,7 @@
 					<h2>Later Completion Marks</h2>
 				</div>
 			</div>
-			<div id="lm-body" class="collapsible" style="max-height:1000px">
+			<div id="lm-body" class="collapsible">
 				<ul class="checklist" id="later-marks">
 					<li><label class="item"><input type="checkbox" id="lm-1"><span class="text">Crane Game: defeat Mega Satan as
 								Tainted Samson.</span></label></li>
@@ -688,7 +664,7 @@
 					<h2>Quality of Life Mods I use</h2>
 				</div>
 			</div>
-			<div id="qol-body" class="collapsible" style="max-height:1000px">
+			<div id="qol-body" class="collapsible">
 				<ul class="checklist" id="qol-mods">
 					<li><label class="item"><input type="checkbox" id="qm-1"><span class="text">External Item Descriptions
 								(AB+|Rep(+)): improved in-game descriptions.</span></label></li>
@@ -717,88 +693,104 @@
 		/* helpers */
 		const $ = sel => document.querySelector(sel);
 		const $$ = sel => Array.from(document.querySelectorAll(sel));
+		const safeParse = (s) => { try { return JSON.parse(s); } catch (e) { return null; } };
 
 		/* load/save checkbox state */
-		function loadChecks() {
-			try {
-				const raw = localStorage.getItem(CHECK_KEY);
-				if (!raw) return {};
-				return JSON.parse(raw);
-			} catch (e) { console.warn("parse error", e); return {}; }
-		}
-		function saveChecks(state) {
-			try { localStorage.setItem(CHECK_KEY, JSON.stringify(state)); } catch (e) { console.warn("save failed", e); }
-		}
+		const checkState = (function loadChecks() {
+			const raw = localStorage.getItem(CHECK_KEY);
+			const parsed = safeParse(raw);
+			return parsed && typeof parsed === 'object' ? parsed : {};
+		})();
 
 		/* initialize checkboxes */
-		const checkState = loadChecks();
 		$$('input[type="checkbox"]').forEach(cb => {
-			if (checkState[cb.id]) cb.checked = true;
+			cb.checked = !!checkState[cb.id];
 			cb.addEventListener('change', () => {
 				checkState[cb.id] = !!cb.checked;
-				saveChecks(checkState);
+				try { localStorage.setItem(CHECK_KEY, JSON.stringify(checkState)); } catch (e) { }
 			});
 		});
 
 		/* theme */
 		function applyTheme(t) {
-			if (t === "dark") document.documentElement.classList.add('dark');
-			else document.documentElement.classList.remove('dark');
+			document.documentElement.classList.toggle('dark', t === 'dark');
 			try { localStorage.setItem(THEME_KEY, t); } catch (e) { }
 		}
-		function loadTheme() {
-			const t = localStorage.getItem(THEME_KEY) || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-			applyTheme(t);
-		}
+		const initialTheme = localStorage.getItem(THEME_KEY) || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+		applyTheme(initialTheme);
 		$('#themeToggle').addEventListener('click', () => {
-			const isDark = document.documentElement.classList.contains('dark');
-			applyTheme(isDark ? 'light' : 'dark');
+			applyTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark');
 		});
-		loadTheme();
 
-		/* collapse / expand sections with icon buttons; save collapsed state */
-		function loadCollapseState() { try { return JSON.parse(localStorage.getItem(COLLAPSE_KEY) || "{}"); } catch (e) { return {}; } }
-		function saveCollapseState(obj) { try { localStorage.setItem(COLLAPSE_KEY, JSON.stringify(obj)); } catch (e) { } }
+		/* collapse state helpers */
+		function loadCollapseState() {
+			const raw = localStorage.getItem(COLLAPSE_KEY);
+			const parsed = safeParse(raw);
+			return parsed && typeof parsed === 'object' ? parsed : {};
+		}
+		function saveCollapseState(state) {
+			try { localStorage.setItem(COLLAPSE_KEY, JSON.stringify(state)); } catch (e) { }
+		}
 		const collapseState = loadCollapseState();
 
-		$$('.toggle-btn').forEach(btn => {
-			const targetId = btn.getAttribute('data-target');
-			const region = document.getElementById(targetId);
-			// default open (unless saved otherwise)
-			const saved = collapseState[targetId];
-			// open when saved is true (or not present), close when explicitly false
-			if (saved === false || saved === "closed" || saved === undefined) {
-				region.style.maxHeight = "0px";
-				btn.textContent = "▸";
-				btn.setAttribute('aria-expanded', 'false');
+		/* set open/closed with smooth animation */
+		function setOpen(region, btn, open, saveState = true) {
+			btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+			btn.textContent = open ? '▾' : '▸';
+			if (open) {
+				// prepare for transition
+				region.style.maxHeight = '0px';
+				region.classList.add('open');
+				requestAnimationFrame(() => {
+					region.style.maxHeight = region.scrollHeight + 'px';
+				});
 			} else {
-				region.style.maxHeight = region.scrollHeight + "px";
-				btn.textContent = "▾";
-				btn.setAttribute('aria-expanded', 'true');
+				// collapse smoothly
+				region.style.maxHeight = region.scrollHeight + 'px';
+				requestAnimationFrame(() => {
+					region.style.maxHeight = '0px';
+					region.classList.remove('open');
+				});
 			}
-
-			btn.addEventListener('click', () => {
-				const isOpen = btn.getAttribute('aria-expanded') === 'true';
-				if (isOpen) {
-					// close
-					region.style.maxHeight = "0px";
-					btn.textContent = "▸";
-					btn.setAttribute('aria-expanded', 'false');
-					collapseState[targetId] = false;
-				} else {
-					// open
-					region.style.maxHeight = region.scrollHeight + "px";
-					btn.textContent = "▾";
-					btn.setAttribute('aria-expanded', 'true');
-					collapseState[targetId] = true;
-				}
+			if (saveState) {
+				collapseState[region.id] = !!open;
 				saveCollapseState(collapseState);
+			}
+		}
+
+		/* initialize toggles: default open unless explicitly saved false/closed */
+		$$('.toggle-btn').forEach(btn => {
+			const targetId = btn.dataset.target;
+			const region = document.getElementById(targetId);
+			if (!region) return;
+			const saved = collapseState[targetId];
+			const isExplicitlyClosed = saved === false || saved === "closed" || saved === "false" || saved === 0 || saved === "0";
+			const openByDefault = !isExplicitlyClosed;
+			// start closed then open if needed to let CSS animate
+			region.style.maxHeight = '0px';
+			setOpen(region, btn, openByDefault, false);
+
+			// main button toggles
+			btn.addEventListener('click', (e) => {
+				e.stopPropagation();
+				const isOpen = btn.getAttribute('aria-expanded') === 'true';
+				setOpen(region, btn, !isOpen);
 			});
 
-			// adjust maxHeight on window resize (keeps open sections sized correctly)
+			// make title area clickable
+			const titleWrap = btn.closest('.section-title');
+			if (titleWrap) {
+				titleWrap.style.cursor = 'pointer';
+				titleWrap.addEventListener('click', (e) => {
+					if (e.target === btn) return;
+					btn.click();
+				});
+			}
+
+			// keep height correct on resize
 			window.addEventListener('resize', () => {
 				if (btn.getAttribute('aria-expanded') === 'true') {
-					region.style.maxHeight = region.scrollHeight + "px";
+					region.style.maxHeight = region.scrollHeight + 'px';
 				}
 			});
 		});
@@ -810,11 +802,11 @@
 			$$('input[type="checkbox"]').forEach(cb => cb.checked = false);
 		});
 
-		/* ensure collapsible sections compute their scrollHeight one last time after load */
+		/* Ensure open regions have correct maxHeight after load */
 		window.addEventListener('load', () => {
-			$$('section .collapsible').forEach(r => {
-				if (r.style.maxHeight && r.style.maxHeight !== "0px") {
-					r.style.maxHeight = r.scrollHeight + "px";
+			$$('.collapsible').forEach(r => {
+				if (r.style.maxHeight && r.style.maxHeight !== '0px') {
+					r.style.maxHeight = r.scrollHeight + 'px';
 				}
 			});
 		});
